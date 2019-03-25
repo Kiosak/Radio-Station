@@ -1,0 +1,28 @@
+<div class="container-fluid pb-4" [ngClass]="this.themeService.theme">
+  <app-header></app-header>
+  <div class="container content">
+
+    <div *ngFor="let station of stations | paginate: { itemsPerPage: 10, currentPage: p }"
+      class="row radio-station my-3 mx-1 p-3">
+      <div class="col-3 d-none-sm align-self-center">
+        <img src="{{station.favicon}}" alt="logo" class="img-fluid rounded">
+      </div>
+      <div class="col-9">
+        <h6>{{station.name}}</h6>
+        <p>{{station.country}}</p>
+        <p>{{station.tags}}</p>
+      </div>
+      <audio controls class="my-3">
+        <source src="{{station.url}}">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <div *ngIf="stations.length === 0" class="row justify-content-center">
+      Oops something went wrong! Try later.
+    </div>
+    <div *ngIf="stations.length !== 0" class="row justify-content-center">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
